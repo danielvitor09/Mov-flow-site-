@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a43">
+  <meta name="description" content="Treinamento funcional com acompanhamento de verdade. Conheça a Movflow, encontre sua turma e marque uma aula experimental.">
+  <title>Movflow — movimento que transforma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #102a43;
+      --ink-soft: #486581;
+      --paper: #ffffff;
+      --paper-deep: #edf5fc;
+      --white: #fff;
+      --lime: #73b7f7;
+      --orange: #2563eb;
+      --line: rgba(16, 42, 67, .16);
+      --display: "Space Grotesk", "Trebuchet MS", sans-serif;
+      --body: "DM Sans", "Trebuchet MS", sans-serif;
+      --page-width: 1240px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--body); }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+    .wrap { width: min(var(--page-width), calc(100% - 64px)); margin-inline: auto; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: var(--ink-soft); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .eyebrow::before { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); content: ""; }
+    .section-title { max-width: 740px; margin: 0; font: 600 clamp(34px, 5vw, 62px)/1.04 var(--display); letter-spacing: 0; }
+    .section-lede { max-width: 510px; margin: 18px 0 0; color: var(--ink-soft); font-size: 17px; }
+    .button { display: inline-flex; min-height: 52px; align-items: center; justify-content: center; gap: 12px; padding: 0 22px; border: 1px solid transparent; border-radius: 3px; background: var(--lime); color: var(--ink); font-size: 14px; font-weight: 700; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+    .button:hover { transform: translateY(-2px); background: #bfdbfe; }
+    .button--dark { background: var(--ink); color: var(--white); }
+    .button--dark:hover { background: #304138; }
+    .button--line { border-color: currentColor; background: transparent; color: inherit; }
+    .button--line:hover { background: rgba(255,255,255,.1); }
+    .arrow { font-size: 18px; line-height: 1; }
+
+    .site-header { position: absolute; z-index: 5; top: 0; right: 0; left: 0; border-bottom: 1px solid rgba(255,255,255,.15); color: var(--white); }
+    .nav { display: flex; min-height: 82px; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--white); text-decoration: none; }
+    .brand-mark { display: grid; width: 32px; height: 32px; place-items: center; border: 2px solid var(--lime); border-radius: 50%; color: var(--lime); font-size: 16px; }
+    .site-header .brand { gap: 13px; }
+    .brand-logo { display: block; width: 70px; height: 70px; flex: 0 0 70px; }
+    .brand-tagline { color: var(--white); font: 500 10px/1.2 var(--body); }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a:not(.button) { color: rgba(255,255,255,.82); font-size: 13px; font-weight: 600; text-decoration: none; transition: color .2s; }
+    .nav-links a:not(.button):hover { color: var(--lime); }
+    .nav .button { min-height: 44px; padding-inline: 17px; font-size: 13px; }
+    .menu-toggle { display: none; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.4); border-radius: 3px; background: transparent; color: var(--white); cursor: pointer; }
+    .portfolio { padding-block: 104px 112px; }
+    .portfolio-head { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 38px; }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .portfolio-item { min-width: 0; }
+    .portfolio-image-slot { display: grid; aspect-ratio: 4 / 3; place-content: center; justify-items: center; gap: 9px; border: 1px dashed #8eb8da; background: linear-gradient(145deg, #edf5fc, #f8fbfe); color: var(--ink-soft); }
+    .portfolio-image-slot span { display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #8eb8da; border-radius: 50%; color: #2563eb; font-size: 24px; line-height: 1; }
+    .portfolio-image-slot small { font-size: 12px; font-weight: 600; }
+    .portfolio-caption { margin: 11px 0 0; color: var(--ink-soft); font-size: 12px; }
+    .testimonials { margin-top: 78px; padding-top: 54px; border-top: 1px solid var(--line); }
+    .testimonials-head { margin-bottom: 27px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .testimonial-slot { min-height: 180px; padding: 23px; border: 1px dashed #8eb8da; background: var(--paper-deep); }
+    .testimonial-quote { display: block; color: #2563eb; font: 600 38px/1 var(--display); }
+    .testimonial-placeholder { margin: 16px 0 23px; color: var(--ink-soft); font-size: 14px; }
+    .testimonial-author { margin: 0; color: var(--ink); font-size: 12px; font-weight: 700; }
+
+    .hero { position: relative; overflow: hidden; min-height: 720px; background: var(--ink); color: var(--white); }
+    .hero::before { position: absolute; inset: 0; background: linear-gradient(125deg, #102a43 0%, #143b61 58%, #1d4f7a 100%); content: ""; }
+    .hero-content { position: relative; z-index: 1; display: flex; min-height: 720px; align-items: center; padding-top: 82px; }
+    .hero-copy { width: min(820px, 76%); padding-block: 70px; }
+    .hero .eyebrow { color: var(--lime); }
+    .hero .eyebrow::before { background: var(--lime); }
+    h1 { max-width: 690px; margin: 0; font: 600 clamp(54px, 8vw, 104px)/.94 var(--display); letter-spacing: 0; }
+    h1 span { color: var(--lime); }
+    .hero-copy > p:not(.eyebrow) { max-width: 445px; margin: 24px 0 30px; color: rgba(255,255,255,.78); font-size: 18px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { position: absolute; right: max(32px, calc((100vw - var(--page-width)) / 2)); bottom: 38px; display: flex; align-items: center; gap: 12px; color: white; font-size: 12px; }
+    .hero-note strong { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 50%; background: var(--lime); color: var(--ink); font: 700 13px var(--display); }
+    .hero-note span { max-width: 120px; }
+    .hero-note small { display: block; color: rgba(255,255,255,.68); }
+
+    .ticker { overflow: hidden; border-bottom: 1px solid var(--line); background: var(--lime); }
+    .ticker-track { display: flex; width: max-content; min-height: 56px; align-items: center; gap: 28px; animation: ticker 32s linear infinite; }
+    .ticker-track span { font: 600 14px var(--display); text-transform: uppercase; }
+    .ticker-track b { color: var(--orange); font-size: 18px; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    .intro { padding-block: 112px 104px; }
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 70px; }
+    .intro-copy { max-width: 515px; }
+    .intro-copy p { margin: 0 0 25px; color: var(--ink-soft); font-size: 18px; }
+    .intro-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding-top: 25px; border-top: 1px solid var(--line); }
+    .stat strong { display: block; font: 600 36px/1 var(--display); }
+    .stat span { display: block; margin-top: 7px; color: var(--ink-soft); font-size: 12px; }
+
+    .programs { padding-block: 100px 112px; background: var(--paper-deep); }
+    .program-head { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 42px; }
+    .program-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .program { display: flex; min-height: 286px; flex-direction: column; padding: 27px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transition: background .2s; }
+    .program:hover { background: rgba(255,255,255,.45); }
+    .program-number { color: var(--orange); font: 600 13px var(--display); }
+    .program h3 { margin: 49px 0 10px; font: 600 25px/1.15 var(--display); }
+    .program p { max-width: 300px; margin: 0; color: var(--ink-soft); font-size: 14px; }
+    .program-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 23px; color: var(--ink-soft); font-size: 12px; }
+    .program-foot span:last-child { color: var(--ink); font-size: 19px; }
+
+    .method { padding-block: 112px; background: var(--ink); color: var(--white); }
+    .method .eyebrow { color: var(--lime); }
+    .method .eyebrow::before { background: var(--lime); }
+    .method .section-lede { color: rgba(255,255,255,.68); }
+    .method-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 84px; align-items: start; }
+    .method-image-wrap { position: relative; margin-top: 15px; }
+    .method-image { width: 100%; height: 475px; object-fit: cover; }
+    .method-image-caption { position: absolute; right: -16px; bottom: 20px; max-width: 195px; padding: 18px; background: var(--lime); color: var(--ink); font: 600 16px/1.25 var(--display); }
+    .steps { margin: 42px 0 0; padding: 0; list-style: none; }
+    .steps li { display: grid; grid-template-columns: 45px 1fr; gap: 16px; padding-block: 22px; border-top: 1px solid rgba(255,255,255,.2); }
+    .steps li > span { color: var(--lime); font: 600 14px var(--display); }
+    .steps h3 { margin: 0; font: 600 19px var(--display); }
+    .steps p { margin: 6px 0 0; color: rgba(255,255,255,.68); font-size: 14px; }
+
+    .schedule { padding-block: 106px 112px; }
+    .schedule-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 38px; }
+    .day-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
+    .day-tab { min-width: 94px; min-height: 42px; padding: 0 14px; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--ink-soft); font-size: 13px; font-weight: 700; cursor: pointer; }
+    .day-tab[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: var(--white); }
+    .schedule-list { border-top: 1px solid var(--line); }
+    .class-row { display: grid; grid-template-columns: 115px 1fr 1fr 150px; align-items: center; gap: 20px; min-height: 79px; border-bottom: 1px solid var(--line); }
+    .class-time { font: 600 16px var(--display); }
+    .class-name { font-weight: 700; }
+    .class-detail { color: var(--ink-soft); font-size: 13px; }
+    .class-level { justify-self: end; padding: 7px 10px; background: var(--paper-deep); font-size: 11px; font-weight: 700; }
+    .schedule-cta { display: flex; justify-content: flex-end; margin-top: 26px; }
+
+    .pricing { padding-block: 104px 112px; background: var(--lime); }
+    .pricing .eyebrow::before { background: var(--orange); }
+    .pricing-head { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 40px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: stretch; }
+    .price-card { display: flex; min-height: 360px; flex-direction: column; padding: 27px; border: 1px solid rgba(16,42,67,.25); background: rgba(255,255,255,.72); }
+    .price-card--featured { background: var(--ink); color: var(--white); }
+    .price-label { margin: 0; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+    .price-amount { margin: 24px 0 0; font: 600 42px/1 var(--display); }
+    .price-amount small { font: 500 14px var(--body); }
+    .price-description { min-height: 42px; margin: 10px 0 23px; color: var(--ink-soft); font-size: 13px; }
+    .price-card--featured .price-description { color: rgba(255,255,255,.68); }
+    .price-list { display: grid; gap: 10px; margin: 0 0 25px; padding: 18px 0 0; border-top: 1px solid rgba(16,42,67,.2); list-style: none; font-size: 13px; }
+    .price-card--featured .price-list { border-color: rgba(255,255,255,.22); }
+    .price-list li::before { margin-right: 9px; color: var(--orange); content: "+"; font-weight: 700; }
+    .price-card .button { width: 100%; margin-top: auto; }
+    .price-card--featured .button { background: var(--lime); color: var(--ink); }
+    .price-note { margin: 20px 0 0; color: var(--ink-soft); font-size: 12px; }
+
+    .coach { padding-block: 110px; }
+    .coach-grid { display: grid; grid-template-columns: 1fr .8fr; align-items: center; gap: 90px; }
+    .coach-copy p:not(.eyebrow) { max-width: 520px; color: var(--ink-soft); font-size: 17px; }
+    .coach-image-wrap { position: relative; max-width: 430px; margin-left: auto; }
+    .coach-image { width: 100%; aspect-ratio: .91; object-fit: cover; }
+    .coach-tag { position: absolute; bottom: 19px; left: -24px; padding: 15px 18px; background: var(--lime); color: var(--ink); font: 600 14px var(--display); }
+
+    .faq { padding-block: 100px 110px; background: var(--paper-deep); }
+    .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 20px; font: 600 17px var(--display); list-style: none; cursor: pointer; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { color: var(--orange); content: "+"; font: 400 25px var(--body); }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-item p { max-width: 590px; margin: -3px 35px 20px 0; color: var(--ink-soft); font-size: 14px; }
+
+    .contact { padding-block: 104px; background: #dbeafe; }
+    .contact-grid { display: grid; grid-template-columns: 1fr .8fr; gap: 80px; align-items: start; }
+    .contact .eyebrow::before { background: var(--lime); }
+    .contact .section-title { max-width: 600px; }
+    .contact-copy { max-width: 530px; margin: 18px 0 0; color: var(--ink-soft); font-size: 17px; }
+    .contact-form { display: grid; gap: 15px; padding: 26px; background: var(--paper); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .field { display: grid; gap: 7px; }
+    .field label { font-size: 12px; font-weight: 700; }
+    .field input, .field select { width: 100%; min-height: 46px; padding: 0 12px; border: 1px solid var(--line); border-radius: 2px; background: var(--white); color: var(--ink); }
+    .contact-form .button { width: 100%; margin-top: 3px; background: var(--ink); color: var(--white); cursor: pointer; }
+    .form-note { margin: 0; color: var(--ink-soft); font-size: 11px; }
+    .contact-details { display: flex; flex-wrap: wrap; gap: 17px 28px; margin-top: 31px; font-size: 13px; }
+    .contact-details a { font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+
+    .footer { padding-block: 29px; background: var(--ink); color: var(--white); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer .brand { gap: 10px; font: 700 19px/1 var(--display); }
+    .footer p { margin: 0; color: rgba(255,255,255,.58); font-size: 11px; }
+    .footer-links { display: flex; gap: 19px; }
+    .footer-links a { color: rgba(255,255,255,.76); font-size: 12px; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .wrap { width: min(var(--page-width), calc(100% - 44px)); }
+      .nav-links { gap: 12px; }
+      .nav-links a:not(.button) { font-size: 11px; }
+      .nav .button { padding-inline: 11px; font-size: 11px; }
+      .site-header .brand { gap: 8px; }
+      .brand-logo { width: 56px; height: 56px; flex-basis: 56px; }
+      .brand-tagline { font-size: 9px; }
+      .hero, .hero-content { min-height: 680px; }
+      .hero-copy { width: 67%; }
+      .intro-grid, .method-grid, .coach-grid, .faq-grid, .contact-grid { gap: 46px; }
+      .class-row { grid-template-columns: 90px 1fr 1fr 110px; gap: 12px; }
+    }
+    @media (max-width: 760px) {
+      html { scroll-padding-top: 72px; }
+      .wrap { width: calc(100% - 40px); }
+      .nav { min-height: 70px; }
+      .brand-logo { width: 60px; height: 60px; flex-basis: 60px; }
+      .menu-toggle { display: inline-flex; }
+      .nav-links { position: absolute; top: 69px; right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 9px 20px 20px; border-bottom: 1px solid rgba(255,255,255,.15); background: var(--ink); }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a:not(.button) { padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.12); font-size: 13px; }
+      .nav-links .button { margin-top: 15px; }
+      .hero, .hero-content { min-height: 720px; }
+      .hero-copy { width: 100%; padding-block: 94px 80px; }
+      h1 { max-width: 520px; font-size: clamp(55px, 13vw, 78px); }
+      .hero-copy > p:not(.eyebrow) { max-width: 360px; font-size: 16px; }
+      .hero-note { right: 20px; bottom: 24px; }
+      .intro, .programs, .method, .schedule, .pricing, .coach, .faq, .contact { padding-block: 76px; }
+      .intro-grid, .method-grid, .coach-grid, .faq-grid, .contact-grid { grid-template-columns: 1fr; gap: 38px; }
+      .intro-stats { gap: 9px; }
+      .stat strong { font-size: 30px; }
+      .stat span { font-size: 11px; }
+      .program-head, .schedule-head, .pricing-head { align-items: flex-start; flex-direction: column; }
+      .program-grid, .pricing-grid { grid-template-columns: 1fr; }
+      .portfolio-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .portfolio-head { align-items: flex-start; flex-direction: column; }
+      .portfolio-image-slot { aspect-ratio: 1.35; }
+      .testimonials { margin-top: 56px; padding-top: 40px; }
+      .program { min-height: 230px; }
+      .program h3 { margin-top: 32px; }
+      .method-image { height: 340px; }
+      .method-image-caption { right: -5px; max-width: 170px; }
+      .class-row { grid-template-columns: 66px 1fr auto; gap: 9px; padding-block: 15px; }
+      .class-time { font-size: 14px; }
+      .class-name { font-size: 13px; }
+      .class-detail { grid-column: 2; grid-row: 2; font-size: 11px; }
+      .class-level { grid-column: 3; grid-row: 1 / 3; padding: 6px; font-size: 9px; }
+      .day-tab { min-width: 0; flex: 1; padding-inline: 8px; font-size: 11px; }
+      .schedule-cta { justify-content: stretch; }
+      .schedule-cta .button { width: 100%; }
+      .price-card { min-height: 335px; }
+      .coach-image-wrap { width: calc(100% - 20px); margin-inline: auto 20px; }
+      .coach-tag { left: -14px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 20px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-links { flex-wrap: wrap; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Navegação principal">
+      <a class="brand" href="#inicio" aria-label="Studio MoveFlow, Treinamento e Reabilitação, início"><img class="brand-logo" src="assets/moveflow-logo.svg" alt="Logo Studio MoveFlow"><span class="brand-tagline">Treinamento e Reabilitação</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu"><span aria-hidden="true">☰</span></button>
+      <div class="nav-links" id="nav-links">
+        <a href="#treinos">Treinos</a>
+        <a href="#metodo">Nosso método</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#horarios">Horários</a>
+        <a href="#planos">Planos</a>
+        <a class="button" href="#contato">Agende uma aula <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">Treinamento funcional · São Paulo</p>
+          <h1>Seu corpo.<br>Seu ritmo.<br><span>Seu movimento.</span></h1>
+          <p>Treino funcional com orientação de perto, energia de turma e espaço para evoluir do seu jeito.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contato">Experimente uma aula <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="button button--line" href="#treinos">Conheça os treinos</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-note"><strong>1h</strong><span>treinos no seu ritmo<small>máximo 5 pessoas por turma</small></span></div>
+    </section>
+
+    <div class="ticker" aria-label="Movimento para todos os corpos e todos os ritmos">
+      <div class="ticker-track" aria-hidden="true">
+        <span>Força com propósito</span><b>✳</b><span>Movimento para a vida</span><b>✳</b><span>Seu ritmo, sua evolução</span><b>✳</b><span>Força com propósito</span><b>✳</b><span>Movimento para a vida</span><b>✳</b><span>Seu ritmo, sua evolução</span><b>✳</b>
+      </div>
+    </div>
+
+    <section class="intro wrap" aria-labelledby="intro-title">
+      <div class="intro-grid">
+        <div>
+          <p class="eyebrow">Mais que uma academia</p>
+          <h2 class="section-title" id="intro-title">Treino bom é aquele que cabe na sua vida.</h2>
+        </div>
+        <div class="intro-copy">
+          <p>Na Movflow, cada aula de 1 hora combina força, mobilidade e condicionamento em movimentos que fazem sentido dentro e fora do treino. Você chega como está e treina no seu ritmo, com acompanhamento de perto.</p>
+          <div class="intro-stats">
+            <div class="stat"><strong>5</strong><span>pessoas por turma, no máximo</span></div>
+            <div class="stat"><strong>1h</strong><span>por treino</span></div>
+            <div class="stat"><strong>100%</strong><span>no seu ritmo</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="programs" id="treinos" aria-labelledby="program-title">
+      <div class="wrap">
+        <div class="program-head">
+          <div><p class="eyebrow">O que move você?</p><h2 class="section-title" id="program-title">Um treino para cada fase.</h2></div>
+          <a class="button button--dark" href="#horarios">Ver horários <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="program-grid">
+          <article class="program"><span class="program-number">01 / BASE</span><h3>Funcional completo</h3><p>Força, resistência e coordenação em uma aula equilibrada, com movimentos para o dia a dia.</p><div class="program-foot"><span>Todos os níveis · 1 hora</span><span aria-hidden="true">↗</span></div></article>
+          <article class="program"><span class="program-number">02 / CONTROLE</span><h3>Força & mobilidade</h3><p>Construa estabilidade, amplitude e confiança com progressões acompanhadas de perto.</p><div class="program-foot"><span>Todos os níveis · 1 hora</span><span aria-hidden="true">↗</span></div></article>
+          <article class="program"><span class="program-number">03 / ENERGIA</span><h3>Condicionamento</h3><p>Circuitos variados para trabalhar o fôlego e a potência. Intensidade sempre ajustável.</p><div class="program-foot"><span>Intermediário · 1 hora</span><span aria-hidden="true">↗</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="metodo" aria-labelledby="method-title">
+      <div class="method-grid wrap">
+        <div class="method-image-wrap"><img class="method-image" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1100&q=85" alt="Aluna praticando exercício de força com acompanhamento"><div class="method-image-caption">Técnica primeiro.<br>Progresso no seu tempo.</div></div>
+        <div>
+          <p class="eyebrow">Como funciona</p><h2 class="section-title" id="method-title">Acompanhamento que faz diferença.</h2><p class="section-lede">Turmas de no máximo 5 pessoas, orientação próxima e exercícios ajustados ao ritmo de cada aluno.</p>
+          <ol class="steps">
+            <li><span>01</span><div><h3>A gente conversa</h3><p>Entendemos sua rotina, seus objetivos e o que você precisa para começar.</p></div></li>
+            <li><span>02</span><div><h3>Você experimenta</h3><p>Uma aula para conhecer o espaço, a equipe e o ritmo dos treinos.</p></div></li>
+            <li><span>03</span><div><h3>Evolui com suporte</h3><p>O professor adapta os movimentos e acompanha seu progresso a cada aula.</p></div></li>
+          </ol>
+          <a class="button" href="#contato">Quero conhecer <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio wrap" id="portfolio" aria-labelledby="portfolio-title">
+      <div class="portfolio-head">
+        <div><p class="eyebrow">Movimento que transforma</p><h2 class="section-title" id="portfolio-title">Nosso portfólio.</h2><p class="section-lede">Resultados, momentos e histórias do nosso estúdio.</p></div>
+      </div>
+      <div class="portfolio-grid" aria-label="Espaços para imagens do portfólio">
+        <article class="portfolio-item"><div class="portfolio-image-slot" role="img" aria-label="Espaço reservado para imagem do portfólio 1"><span aria-hidden="true">+</span><small>Adicionar imagem</small></div><p class="portfolio-caption">Imagem do portfólio 01</p></article>
+        <article class="portfolio-item"><div class="portfolio-image-slot" role="img" aria-label="Espaço reservado para imagem do portfólio 2"><span aria-hidden="true">+</span><small>Adicionar imagem</small></div><p class="portfolio-caption">Imagem do portfólio 02</p></article>
+        <article class="portfolio-item"><div class="portfolio-image-slot" role="img" aria-label="Espaço reservado para imagem do portfólio 3"><span aria-hidden="true">+</span><small>Adicionar imagem</small></div><p class="portfolio-caption">Imagem do portfólio 03</p></article>
+      </div>
+      <div class="testimonials" aria-labelledby="testimonials-title">
+        <div class="testimonials-head"><p class="eyebrow">Depoimentos</p><h3 class="section-title" id="testimonials-title">Quem treina com a gente.</h3></div>
+        <div class="testimonials-grid">
+          <article class="testimonial-slot"><span class="testimonial-quote" aria-hidden="true">“</span><p class="testimonial-placeholder">Espaço reservado para depoimento de aluno.</p><p class="testimonial-author">Nome do aluno</p></article>
+          <article class="testimonial-slot"><span class="testimonial-quote" aria-hidden="true">“</span><p class="testimonial-placeholder">Espaço reservado para depoimento de aluno.</p><p class="testimonial-author">Nome do aluno</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="schedule wrap" id="horarios" aria-labelledby="schedule-title">
+      <div class="schedule-head"><div><p class="eyebrow">Encontre seu horário</p><h2 class="section-title" id="schedule-title">A sua próxima aula começa aqui.</h2><p class="section-lede">Aulas de 1 hora, de segunda a sábado, em turmas de no máximo 5 pessoas.</p></div></div>
+      <div class="day-tabs" role="tablist" aria-label="Dia da semana">
+        <button class="day-tab" type="button" role="tab" id="tab-seg" aria-controls="schedule-list" aria-selected="true" data-day="seg">Segunda</button>
+        <button class="day-tab" type="button" role="tab" id="tab-ter" aria-controls="schedule-list" aria-selected="false" data-day="ter" tabindex="-1">Terça</button>
+        <button class="day-tab" type="button" role="tab" id="tab-qua" aria-controls="schedule-list" aria-selected="false" data-day="qua" tabindex="-1">Quarta</button>
+        <button class="day-tab" type="button" role="tab" id="tab-qui" aria-controls="schedule-list" aria-selected="false" data-day="qui" tabindex="-1">Quinta</button>
+        <button class="day-tab" type="button" role="tab" id="tab-sex" aria-controls="schedule-list" aria-selected="false" data-day="sex" tabindex="-1">Sexta</button>
+        <button class="day-tab" type="button" role="tab" id="tab-sab" aria-controls="schedule-list" aria-selected="false" data-day="sab" tabindex="-1">Sábado</button>
+      </div>
+      <div class="schedule-list" id="schedule-list" role="tabpanel" aria-labelledby="tab-seg" aria-live="polite"></div>
+      <div class="schedule-cta"><a class="button button--dark" href="#contato">Reservar aula experimental <span class="arrow" aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="pricing" id="planos" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <div class="pricing-head"><div><p class="eyebrow">Planos sem complicação</p><h2 class="section-title" id="pricing-title">Escolha seu ritmo.</h2><p class="section-lede">Comece com o que funciona para sua rotina. Sem taxa de matrícula.</p></div></div>
+        <div class="pricing-grid">
+          <article class="price-card"><p class="price-label">Essencial</p><p class="price-amount">R$ 189<small> / mês</small></p><p class="price-description">Para começar com consistência.</p><ul class="price-list"><li>2 aulas por semana</li><li>Turmas de até 5 pessoas</li><li>Acompanhamento do professor</li></ul><a class="button button--dark" href="#contato">Tenho interesse <span class="arrow" aria-hidden="true">↗</span></a></article>
+          <article class="price-card price-card--featured"><p class="price-label">Movflow · mais escolhido</p><p class="price-amount">R$ 249<small> / mês</small></p><p class="price-description">Mais liberdade para manter o ritmo.</p><ul class="price-list"><li>3 aulas por semana</li><li>Turmas de até 5 pessoas</li><li>Check-in de evolução mensal</li></ul><a class="button" href="#contato">Tenho interesse <span class="arrow" aria-hidden="true">↗</span></a></article>
+          <article class="price-card"><p class="price-label">Livre</p><p class="price-amount">R$ 319<small> / mês</small></p><p class="price-description">Treine quando quiser, até 6x na semana.</p><ul class="price-list"><li>Até 6 aulas por semana</li><li>Turmas de até 5 pessoas</li><li>Check-in de evolução mensal</li></ul><a class="button button--dark" href="#contato">Tenho interesse <span class="arrow" aria-hidden="true">↗</span></a></article>
+        </div>
+        <p class="price-note">Valores ilustrativos. Consulte condições, disponibilidade e endereço com a equipe.</p>
+      </div>
+    </section>
+
+    <section class="coach" aria-labelledby="coach-title">
+      <div class="coach-grid wrap">
+        <div class="coach-copy"><p class="eyebrow">Gente que acompanha gente</p><h2 class="section-title" id="coach-title">Orientação próxima. Respeito pelo seu processo.</h2><p>Nossos professores estão com você em cada etapa: do primeiro agachamento ao próximo objetivo. Sem comparação, sem receita pronta, com atenção ao que o seu corpo precisa.</p><a class="button button--dark" href="#contato">Conheça a equipe <span class="arrow" aria-hidden="true">↗</span></a></div>
+        <div class="coach-image-wrap"><img class="coach-image" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=950&q=85" alt="Profissional de treinamento sorrindo no estúdio"><div class="coach-tag">Seu progresso, lado a lado.</div></div>
+      </div>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="faq-grid wrap">
+        <div><p class="eyebrow">Dúvidas comuns</p><h2 class="section-title" id="faq-title">Antes de dar o primeiro passo.</h2></div>
+        <div class="faq-list">
+          <details class="faq-item"><summary>Preciso ter experiência para começar?</summary><p>Não. As aulas são adaptadas ao seu nível e o professor orienta os movimentos desde o início. A aula experimental é uma boa forma de conhecer o formato.</p></details>
+          <details class="faq-item"><summary>Como funciona a aula experimental?</summary><p>Escolha um horário no formulário, conte um pouco sobre você e nossa equipe combina a primeira visita por e-mail.</p></details>
+          <details class="faq-item"><summary>O que devo levar?</summary><p>Venha com roupa confortável, tênis e uma garrafa de água. Chegue alguns minutos antes para conhecer o espaço.</p></details>
+          <details class="faq-item"><summary>Posso treinar mesmo com limitações?</summary><p>Converse com a equipe antes da primeira aula. O professor pode adaptar exercícios, mas a prática não substitui orientação médica ou fisioterapêutica.</p></details>
+          <details class="faq-item"><summary>Onde fica a Movflow?</summary><p>Estamos em São Paulo. Envie sua solicitação pelo formulário para receber nosso endereço e as opções de horário.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contato" aria-labelledby="contact-title">
+      <div class="contact-grid wrap">
+        <div><p class="eyebrow">Seu primeiro treino</p><h2 class="section-title" id="contact-title">Vamos colocar isso em movimento?</h2><p class="contact-copy">Conte um pouquinho sobre você. O formulário prepara uma mensagem para nossa equipe confirmar sua aula experimental.</p><div class="contact-details"><a href="mailto:oi@movflow.com.br">oi@movflow.com.br</a><span>São Paulo, SP</span><a href="#inicio">Voltar ao início ↑</a></div></div>
+        <form class="contact-form" id="trial-form">
+          <div class="form-row">
+            <div class="field"><label for="name">Seu nome</label><input id="name" name="name" autocomplete="name" required placeholder="Como podemos te chamar?"></div>
+            <div class="field"><label for="email">Seu e-mail</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="voce@email.com"></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="goal">O que você busca?</label><select id="goal" name="goal" required><option value="" disabled selected>Selecione um objetivo</option><option>Começar a treinar</option><option>Ganhar força</option><option>Melhorar condicionamento</option><option>Conhecer o funcional</option></select></div>
+            <div class="field"><label for="period">Melhor período</label><select id="period" name="period" required><option value="" disabled selected>Selecione um período</option><option>Manhã</option><option>Horário de almoço</option><option>Tarde</option><option>Noite</option></select></div>
+          </div>
+          <button class="button" type="submit">Preparar solicitação <span class="arrow" aria-hidden="true">↗</span></button>
+          <p class="form-note">Ao enviar, seu aplicativo de e-mail abrirá com a mensagem pronta para revisão.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="footer-inner wrap"><a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">m</span>movflow</a><p>© <span id="year"></span> Movflow. Movimento para a vida.</p><div class="footer-links"><a href="#treinos">Treinos</a><a href="#portfolio">Portfólio</a><a href="#horarios">Horários</a><a href="#planos">Planos</a><a href="#contato">Contato</a></div></div></footer>
+
+  <script>
+    const schedule = {
+      seg: [["06:30", "Funcional completo", "Todos os níveis", "1 hora"], ["08:00", "Força & mobilidade", "Todos os níveis", "1 hora"], ["12:15", "Condicionamento", "Intermediário", "1 hora"], ["18:00", "Funcional completo", "Todos os níveis", "1 hora"], ["19:00", "Força & mobilidade", "Todos os níveis", "1 hora"]],
+      ter: [["07:00", "Força & mobilidade", "Todos os níveis", "1 hora"], ["09:00", "Funcional completo", "Todos os níveis", "1 hora"], ["12:15", "Condicionamento", "Intermediário", "1 hora"], ["17:30", "Funcional completo", "Todos os níveis", "1 hora"], ["19:00", "Condicionamento", "Intermediário", "1 hora"]],
+      qua: [["06:30", "Funcional completo", "Todos os níveis", "1 hora"], ["08:00", "Força & mobilidade", "Todos os níveis", "1 hora"], ["12:15", "Condicionamento", "Intermediário", "1 hora"], ["18:00", "Funcional completo", "Todos os níveis", "1 hora"], ["19:00", "Força & mobilidade", "Todos os níveis", "1 hora"]],
+      qui: [["07:00", "Força & mobilidade", "Todos os níveis", "1 hora"], ["09:00", "Funcional completo", "Todos os níveis", "1 hora"], ["12:15", "Condicionamento", "Intermediário", "1 hora"], ["17:30", "Funcional completo", "Todos os níveis", "1 hora"], ["19:00", "Condicionamento", "Intermediário", "1 hora"]],
+      sex: [["06:30", "Funcional completo", "Todos os níveis", "1 hora"], ["08:00", "Força & mobilidade", "Todos os níveis", "1 hora"], ["12:15", "Funcional completo", "Todos os níveis", "1 hora"], ["17:30", "Condicionamento", "Intermediário", "1 hora"]],
+      sab: [["08:00", "Funcional completo", "Todos os níveis", "1 hora"], ["09:00", "Força & mobilidade", "Todos os níveis", "1 hora"], ["10:00", "Condicionamento", "Intermediário", "1 hora"]]
+    };
+
+    const tabs = [...document.querySelectorAll(".day-tab")];
+    const scheduleList = document.querySelector("#schedule-list");
+
+    function showSchedule(day) {
+      const selectedTab = tabs.find((tab) => tab.dataset.day === day);
+      tabs.forEach((tab) => {
+        const selected = tab === selectedTab;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      scheduleList.setAttribute("aria-labelledby", selectedTab.id);
+      scheduleList.innerHTML = schedule[day].map(([time, name, level, duration]) => `
+        <div class="class-row"><span class="class-time">${time}</span><span class="class-name">${name}</span><span class="class-detail">${duration} · ${level}</span><span class="class-level">Vagas limitadas</span></div>
+      `).join("");
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => showSchedule(tab.dataset.day));
+      tab.addEventListener("keydown", (event) => {
+        if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        showSchedule(tabs[nextIndex].dataset.day);
+      });
+    });
+    showSchedule("seg");
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector("#nav-links");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Abrir menu" : "Fechar menu");
+      menuToggle.querySelector("span").textContent = isOpen ? "☰" : "×";
+      navLinks.classList.toggle("is-open", !isOpen);
+    });
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menu");
+      menuToggle.querySelector("span").textContent = "☰";
+      navLinks.classList.remove("is-open");
+    }));
+
+    document.querySelector("#trial-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const subject = encodeURIComponent("Aula experimental Movflow");
+      const body = encodeURIComponent(`Oi! Meu nome é ${formData.get("name")} e meu e-mail é ${formData.get("email")}.\n\nQuero: ${formData.get("goal")}\nMelhor período: ${formData.get("period")}\n\nGostaria de agendar uma aula experimental.`);
+      window.location.href = `mailto:oi@movflow.com.br?subject=${subject}&body=${body}`;
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
